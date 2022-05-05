@@ -222,7 +222,7 @@ byte DaliBusClass::getBusLevel() {
 }
 
 void DaliBusClass::setBusLevel(byte level) {
-  digitalWrite(txPin, (activeLow ? !level : level));
+  digitalWrite(txPin, (activeLow ? level : !level));
   txBusLevel = level;
 }
 

@@ -71,6 +71,11 @@ daliReturnValue DaliClass::sendArcWait(byte address, byte value, byte addr_type 
   return sendRawWait(prepareCmd(message, address, value, addr_type, 0), 2, timeout);
 }
 
+daliReturnValue DaliClass::sendArcBroadcast(byte value)
+{
+    return Dali.sendArc(63, value, Dali.DALI_GROUP_ADDRESS);
+}
+
 daliReturnValue DaliClass::sendCmd(byte address, byte command, byte addr_type = DALI_SHORT_ADDRESS) {
   byte message[2];
   return DaliBus.sendRaw(prepareCmd(message, address, command, addr_type, 1), 2);
@@ -90,6 +95,26 @@ int DaliClass::sendCmdWait(byte address, byte command, byte addr_type = DALI_SHO
 
   return result;
 }
+
+daliReturnValue DaliClass::sendCmdBroadcast(byte command)
+{
+  return Dali.sendCmd(63, command, Dali.DALI_GROUP_ADDRESS);
+}
+
+// daliReturnValue sendDataCmdBroadcast(word command, byte data)
+// {
+//   byte address = 63;
+//   byte addr_type = Dali.DALI_GROUP_ADDRESS;
+
+//   byte message[3];
+
+//   // prepareCmd
+//   prepareSpecialCmd(message, command, )
+
+//   message[2] = data;
+
+//   return DaliBus.sendRaw(message, 3);
+// }
 
 byte * DaliClass::prepareSpecialCmd(byte * message, word command, byte value) {
   message[0] = ((byte) command + 16) << 1; // convert command number

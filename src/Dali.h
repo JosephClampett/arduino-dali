@@ -124,6 +124,8 @@ class DaliClass {
       * It doesn't check if the bus is ready and returns immediately, stating if transmission could be
       * initiated through its response value ::daliReturnValue. */
     daliReturnValue sendArc(byte address, byte value, byte addr_type = DALI_SHORT_ADDRESS);
+    
+    daliReturnValue sendArcBroadcast(byte value);
 
     /** Send a direct arc level command and wait for its completion
       * @param  address    destination address
@@ -146,6 +148,10 @@ class DaliClass {
       * Note that some of the special commands need to be sent twice (258 - INITIALISE, 259 - RANDOMISE), which
       * this method doesn't do by itself. */
     daliReturnValue sendCmd(byte address, byte command, byte addr_type = DALI_SHORT_ADDRESS);
+
+    daliReturnValue sendCmdBroadcast(byte command);
+
+    // daliReturnValue sendDataCmdBroadcast(byte command, byte data);
     
     /** Send a DALI command, wait for its completion and return the response if available
       * @param  address    destination address
